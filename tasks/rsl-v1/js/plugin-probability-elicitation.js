@@ -194,19 +194,19 @@ var jsPsychProbabilityElicitation = (function (jspsych) {
 
         // left anchor
         var left_anchor = ['The worst', 'orchard'];
-        for (i = 0; i < left_anchor.length; i++){
+        for (var i = 0; i < left_anchor.length; i++){
           ctx.fillText(left_anchor[i], trial.canvas_dimensions[0]/2 - trial.track_dimensions[0]/2 + ctx.measureText('M').width, trial.canvas_dimensions[1]/2 + trial.track_offset[1] + ( (i * 1.5) + 2.5) * ctx.measureText('M').width);
         }
 
         // centre anchor
         var centre_anchor = ['About', 'average'];
-        for (i = 0; i < centre_anchor.length; i++){
+        for (var i = 0; i < centre_anchor.length; i++){
           ctx.fillText(centre_anchor[i], trial.canvas_dimensions[0]/2, trial.canvas_dimensions[1]/2 + trial.track_offset[1] + ( (i * 1.5) + 2.5) * ctx.measureText('M').width);
         }
 
         // right anchor
         var right_anchor = ['The best', 'orchard'];
-        for (i = 0; i < right_anchor.length; i++){
+        for (var i = 0; i < right_anchor.length; i++){
           ctx.fillText(right_anchor[i], trial.canvas_dimensions[0]/2 + trial.track_dimensions[0]/2 - ctx.measureText('M').width, trial.canvas_dimensions[1]/2 + trial.track_offset[1] + ( (i * 1.5) + 2.5) * ctx.measureText('M').width);
         }
 
