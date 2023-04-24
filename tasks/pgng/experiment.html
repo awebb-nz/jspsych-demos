@@ -6,6 +6,7 @@
   <!-- Load libraries -->
   <script src="../../lib/jquery-3.3.1/jquery.min.js"></script>
   <script src="../../lib/jspsych-7.3.1/jspsych.js"></script>
+  <script src="./js/backend_integration.js"></script>
 
   <!-- Initialize jsPsych -->
   <script src="./js/init-jspsych.js"></script>
@@ -32,12 +33,21 @@
 <body></body>
 <script>
 
+  let id = jsPsych.randomization.randomID();
+
   // Define experiment fullscreen.
   var FULLSCREEN = {
     type: jsPsychFullscreen,
     fullscreen_mode: true,
   }
 
+  var expt_end = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: "End of experiment.",
+      on_finish: function() {
+        send_complete(id, jsPsych.data.get().json());
+      }
+  };
   // Define timeline.
   var timeline = [];
   timeline = timeline.concat(FULLSCREEN);
@@ -45,6 +55,7 @@
   timeline = timeline.concat(INSTRUCTIONS);
   timeline = timeline.concat(READY);
   timeline = timeline.concat(PGNG);
+  timeline = timeline.concat(expt_end);
 
   // Execute timeline.
   jsPsych.run(timeline);
