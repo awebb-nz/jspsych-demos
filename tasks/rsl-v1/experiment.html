@@ -5,6 +5,7 @@
 
   <!-- load some libraries -->
   <script src="../../lib/jspsych-7.3.1/jspsych.js"></script>
+  <script src="./js/backend_integration.js"></script>
 
   <!-- Initialize jsPsych -->
   <script src="./js/init-jspsych.js"></script>
@@ -33,6 +34,8 @@
   // welcome messages and landing pages
   //------------------------------------
 
+  let id = jsPsych.randomization.randomID();
+
   // define welcome message
   var welcome = {
     type: jsPsychHtmlKeyboardResponse,
@@ -42,7 +45,10 @@
   // define experiment end message
   var expt_end = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: "End of demo."
+    stimulus: "End of demo.",
+    on_finish: function() {
+      send_complete(id, jsPsych.data.get().json());
+    }
   };
 
   //------------------------------------
@@ -71,7 +77,10 @@
       feedback_images: feedback_images,
       n_trials: rsl_runsheet.length,
       left_image: jsPsych.timelineVariable('left_image'),
-      right_image: jsPsych.timelineVariable('right_image')
+      right_image: jsPsych.timelineVariable('right_image'), 
+      on_finish: function() {
+        send_incomplete(id, jsPsych.data.get().json());
+      }
     }],
 
   };
@@ -86,7 +95,10 @@
     type: jsPsychProbabilityElicitation,
     slider_images: slider_images,
     orchard_images: stimulus_images,
-    image_allocation: image_allocation
+    image_allocation: image_allocation,
+    on_finish: function() {
+      send_incomplete(id, jsPsych.data.get().json());
+    }
   };
 
   //------------------------------------
